@@ -10,8 +10,10 @@
                             <img src="{{ user.avatar(100) }}" alt="{{ user.username }}">
                         </td>
                         <td>
-                            <h3>User: {{ user.username }}</h3>
+                            <h1>User: {{ user.username }}</h1>
                             <p>Email: {{ user.email }}</p>
+                            {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+                            {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
                         </td>
                     </tr>
                 </table>
