@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="{{ user.avatar(100) }}" alt="{{ user.username }}">
+                        </td>
+                        <td>
+                            <h3>User: {{ user.username }}</h3>
+                            <p>Email: {{ user.email }}</p>
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+                {% for post in posts %}
+                    {% include '_post.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

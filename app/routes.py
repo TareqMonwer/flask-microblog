@@ -10,9 +10,14 @@ from app.models import User
 @app.route('/index')
 @login_required
 def index():
+    posts = [
+        {'author': current_user, 'title': 'Hello my profile', 'body': 'Lash'},
+        {'author': current_user, 'title': 'Did you see it coming? A job??', 'body': 'Yeah!'}
+    ]
     context = {
         'title': 'Interactive Learning',
-        'posts': current_user.posts
+        # 'posts': current_user.posts,
+        'posts': posts,
     }
     return render_template('index.html', **context)
 
@@ -58,6 +63,19 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/u/<username>/')
+@login_required
+def user_profile(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {'author': user, 'title': 'Hello my profile', 'body': 'Lash'},
+        {'author': user, 'title': 'Did you see it coming? A job??', 'body': 'Yeah!'}
+    ]
+    context = {'user': user, 'posts': posts}
+    return render_template('user_profile.html', **context)
