@@ -3,10 +3,9 @@ import os.path
 from logging.handlers import RotatingFileHandler
 from logging.handlers import SMTPHandler
 
-from app import app
-
 
 def send_log_in_mail():
+    from . import app
     auth = None
     if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
         auth = (app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])
@@ -24,6 +23,7 @@ def send_log_in_mail():
 
 
 def save_log_in_file():
+    from . import app
     if not os.path.exists('logs'):
         os.mkdir('logs')
     file_handler = RotatingFileHandler('logs/micro_blog.log', maxBytes=10240,
